@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PLUR — Support &amp; Privacy</title>
+<style>
+  :root{
+    --bg:#131211; --card:#1d1b18; --strip:#262320;
+    --sand:#d9a867; --cream:#e8d3a5; --sage:#9cba86; --salmon:#e37b62;
+    --text:#e6e2dc; --dim:#9a938a; --line:#2e2a26;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px; margin:0 auto; padding:56px 24px 96px}
+  header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:40px}
+  .mark{
+    font-size:34px; font-weight:800; letter-spacing:.22em;
+    color:var(--sand); margin:0 0 6px;
+  }
+  .tag{color:var(--dim); font-size:13px; letter-spacing:.18em; text-transform:uppercase; margin:0}
+  nav{margin:26px 0 0; display:flex; gap:1px; flex-wrap:wrap}
+  nav a{
+    display:inline-block; padding:9px 18px; background:var(--strip); color:var(--text);
+    text-decoration:none; font-size:12px; letter-spacing:.16em; text-transform:uppercase;
+    border-radius:2px;
+  }
+  nav a:hover{background:var(--sand); color:#131211}
+  h2{
+    font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--dim);
+    margin:56px 0 18px; font-weight:700;
+  }
+  h3{font-size:17px; margin:30px 0 8px; color:var(--cream); font-weight:600}
+  p{margin:0 0 16px}
+  ul{margin:0 0 16px; padding-left:20px}
+  li{margin-bottom:8px}
+  a{color:var(--sand)}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:3px;
+    padding:22px 24px; margin:0 0 20px;
+  }
+  .mail{
+    display:inline-block; font-size:22px; font-weight:700; color:var(--sand);
+    text-decoration:none; word-break:break-all;
+  }
+  .note{color:var(--dim); font-size:14px}
+  .warn{border-left:3px solid var(--salmon); padding-left:16px; margin:0 0 16px}
+  footer{
+    margin-top:72px; padding-top:24px; border-top:1px solid var(--line);
+    color:var(--dim); font-size:13px;
+  }
+  code{background:var(--strip); padding:2px 6px; border-radius:2px; font-size:14px}
+  .video{
+    position:relative; padding-bottom:56.25%; height:0; overflow:hidden;
+    background:#000; border:1px solid var(--line); border-radius:3px; margin:0 0 14px;
+  }
+  .video iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="mark">PLUR</p>
+    <p class="tag">Generative controller for the Elektron Digitakt II</p>
+    <nav>
+      <a href="#demo">Demo</a>
+      <a href="#support">Support</a>
+      <a href="#privacy">Privacy policy</a>
+    </nav>
+  </header>
+
+  <h2 id="demo">Demo</h2>
+
+  <div class="video">
+    <iframe src="https://www.youtube-nocookie.com/embed/E3020o_lKgE"
+            title="PLUR — Generative Sequencer &amp; Morph Pad for the Elektron Digitakt II"
+            frameborder="0" loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+  </div>
+  <p class="note">
+    The full demo: the one-time Digitakt setup, then a continuous take with no cuts.
+    <a href="https://youtu.be/E3020o_lKgE">Watch on YouTube</a>
+  </p>
+
+  <h2 id="support">Support</h2>
+
+  <div class="card">
+    <p style="margin-bottom:6px">Questions, bugs, or feedback:</p>
+    <a class="mail" href="mailto:vrils@protonmail.com">vrils@protonmail.com</a>
+    <p class="note" style="margin:12px 0 0">
+      PLUR is made by one person, so a reply may take a few days. Please include your
+      iPad model, your iPadOS version, and the app version shown in the SETUP tab.
+    </p>
+  </div>
+
+  <h3>What PLUR needs to work</h3>
+  <ul>
+    <li>An Elektron Digitakt II. It does not work with the original Digitakt, or with any other hardware or software instrument.</li>
+    <li>A USB-C cable from the iPad to the Digitakt.</li>
+    <li>An iPad. PLUR is iPad-only.</li>
+  </ul>
+  <p>PLUR sends MIDI only. It is not a synthesizer and makes no sound on its own.</p>
+
+  <h3>Nothing responds when I play</h3>
+  <div class="warn">
+    <p style="margin-bottom:0">
+      This is almost always the one-time Digitakt setup. Open the <strong>SETUP</strong>
+      tab inside the app and follow steps 1 to 5. Until the MIDI channels, the clock,
+      and the amp mode match, PLUR stays silent.
+    </p>
+  </div>
+  <p>The most common causes:</p>
+  <ul>
+    <li>The track MIDI channels on the Digitakt do not match the CH settings in the app header.</li>
+    <li><code>AUTO CHANNEL</code> is still on channel 10, which collides with the app's second track.</li>
+    <li><code>CLOCK SEND</code> and <code>TRANSPORT SEND</code> are off, so the app's sequencer never starts.</li>
+    <li><code>AMP MODE</code> is set to ADSR instead of AHD, so the AMP ENV encoder does nothing useful.</li>
+  </ul>
+
+  <h3>The morph pad feels dead</h3>
+  <p>
+    The pad can only be heard for as long as a note is still sounding. With AMP ENV low
+    the notes are short plucks and a filter sweep has nothing to move through. Raise
+    AMP ENV first. The NOTE LENGTH entry in the app's GUIDE tab explains this in full.
+  </p>
+
+  <h3>Where the manual is</h3>
+  <p>
+    Inside the app. The <strong>SETUP</strong> tab covers the one-time Digitakt
+    configuration, and the <strong>GUIDE</strong> tab explains what every control does.
+  </p>
+
+  <h2 id="privacy">Privacy policy</h2>
+
+  <p class="note">Last updated: 4 September 2026</p>
+
+  <h3>PLUR collects no data</h3>
+  <p>
+    PLUR does not collect, transmit, sell, or share any personal data. There is no
+    analytics, no crash reporting, no advertising, and no tracking of any kind. The app
+    contains no third-party SDKs.
+  </p>
+
+  <h3>No network connection</h3>
+  <p>
+    PLUR makes no network requests. It communicates only over MIDI with hardware you
+    connect to your iPad. Nothing leaves your device.
+  </p>
+
+  <h3>What is stored, and where</h3>
+  <p>
+    Your patterns, presets, morph pad scenes, and app settings are saved locally on your
+    iPad. They stay on the device, are never uploaded anywhere, and are removed when you
+    delete the app.
+  </p>
+
+  <h3>If you email support</h3>
+  <p>
+    When you write to the address above, we see your email address and whatever you put
+    in the message. That correspondence is used only to answer you, and is not shared
+    with anyone or used for any other purpose.
+  </p>
+
+  <h3>Children</h3>
+  <p>
+    PLUR collects no data from anyone, of any age.
+  </p>
+
+  <h3>Changes</h3>
+  <p>
+    If this policy ever changes, the updated version will be posted on this page with a
+    new date.
+  </p>
+
+  <h3>Contact</h3>
+  <p>
+    Questions about this policy: <a href="mailto:vrils@protonmail.com">vrils@protonmail.com</a>
+  </p>
+
+  <footer>
+    Elektron and Digitakt are trademarks of Elektron Music Machines MAV AB. PLUR is an
+    independent app and is not affiliated with, endorsed or sponsored by Elektron.
+  </footer>
+
+</div>
+</body>
+</html>
