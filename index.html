@@ -56,6 +56,23 @@
     background:#000; border:1px solid var(--line); border-radius:3px; margin:0 0 14px;
   }
   .video iframe{position:absolute; top:0; left:0; width:100%; height:100%; border:0}
+  ol.steps{list-style:none; margin:0 0 8px; padding:0; counter-reset:s}
+  ol.steps > li{
+    counter-increment:s; position:relative; padding:0 0 22px 46px; margin:0;
+  }
+  ol.steps > li::before{
+    content:counter(s); position:absolute; left:0; top:1px;
+    width:28px; height:28px; border-radius:50%; background:var(--sand); color:#131211;
+    font-size:13px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  }
+  ol.steps h4{margin:2px 0 6px; font-size:16px; color:var(--cream); font-weight:600}
+  ol.steps p{margin:0 0 8px; font-size:15px}
+  .path{
+    display:block; background:var(--strip); border-left:2px solid var(--sand);
+    padding:8px 12px; margin:0 0 10px; font-size:13.5px; color:var(--cream);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; border-radius:0 2px 2px 0;
+    overflow-x:auto; white-space:nowrap;
+  }
 </style>
 </head>
 <body>
@@ -66,6 +83,7 @@
     <p class="tag">Generative controller for the Elektron Digitakt II</p>
     <nav>
       <a href="#demo">Demo</a>
+      <a href="#setup">Setup</a>
       <a href="#support">Support</a>
       <a href="#privacy">Privacy policy</a>
     </nav>
@@ -84,6 +102,88 @@
     The full demo: the one-time Digitakt setup, then a continuous take with no cuts.
     <a href="https://youtu.be/E3020o_lKgE">Watch on YouTube</a>
   </p>
+
+  <h2 id="setup">Setting up the Digitakt</h2>
+
+  <p>
+    PLUR needs a few settings on the Digitakt before anything responds. This is a
+    one-time job that takes a couple of minutes. The same guide is built into the app,
+    on the SETUP tab, and that copy is the one kept up to date.
+  </p>
+
+  <h3>Steps 1 to 5, required</h3>
+
+  <ol class="steps">
+    <li>
+      <h4>Set the track MIDI channels</h4>
+      <span class="path">SETTINGS → MIDI CONFIG → CHANNELS</span>
+      <p>Audio Track 9 to channel 9, Audio Track 10 to channel 10. These are the app's
+      track 1 and track 2, and they must match the CH settings in the app's header.</p>
+    </li>
+    <li>
+      <h4>Move AUTO CHANNEL off the track channels</h4>
+      <span class="path">SETTINGS → MIDI CONFIG → CHANNELS → AUTO CHANNEL = 16</span>
+      <p>It ships on channel 10, which is exactly the app's track 2. The auto channel
+      passes everything to whichever track is selected on the Digitakt, so with the
+      default setting the app's second track follows your track selection on the box.
+      Any channel works as long as it is not 9, 10, or your FX channel.</p>
+    </li>
+    <li>
+      <h4>Send MIDI clock and transport</h4>
+      <span class="path">SETTINGS → MIDI CONFIG → SYNC → CLOCK SEND = ON, TRANSPORT SEND = ON</span>
+      <p>The Digitakt drives the app. Start, stop and tempo all follow the box. Without
+      this the app's sequencer will not run in sync.</p>
+    </li>
+    <li>
+      <h4>Choose an FX control channel</h4>
+      <span class="path">SETTINGS → MIDI CONFIG → CHANNELS → FX CONTROL CH = 11</span>
+      <p>Pick a free channel that is not a track channel and not the auto channel. Set
+      the same number in the app's FX CH picker, then set that Audio Track to OFF so
+      nothing else answers on it.</p>
+      <p>A separate channel is needed because Elektron reuses CC numbers per channel. On
+      a track channel, CC 26 and 27 are the filter base and width that the BW FILT
+      encoder drives. On the FX channel the same numbers are delay LPF and reverb send,
+      so if they collide, BW FILT chokes the delay.</p>
+    </li>
+    <li>
+      <h4>Set AMP MODE to AHD</h4>
+      <span class="path">AMP page → MODE = AHD</span>
+      <p>Not ADSR. The app's AMP ENV encoder drives the Digitakt's amp HOLD and DECAY
+      together, and those two parameters only exist in AHD mode. In ADSR the same CCs
+      land elsewhere and the encoder does nothing useful.</p>
+    </li>
+  </ol>
+
+  <h3>Steps 6 to 8, your choice</h3>
+
+  <p class="note" style="margin-bottom:18px">
+    These are about the sound on the box, not about making the app work. PLUR drives
+    whatever sits on the track, including ordinary samples.
+  </p>
+
+  <ol class="steps" start="6" style="counter-reset:s 5">
+    <li>
+      <h4>Load a single-cycle waveform, for a synth bass</h4>
+      <span class="path">Samples/Drive/Factory/Oscillators/Single Cycles</span>
+      <p>"SC Acid Squ" is a good place to start for a bassline. Every single cycle and
+      wavetable has its own character, so try a few. A single cycle turns the track into
+      a playable synth voice, which is where the fattest bass comes from. Point PLUR at
+      a one-shot, a stab or a loop instead and it sequences and morphs that, with steps
+      6 and 7 skipped.</p>
+    </li>
+    <li>
+      <h4>Set the play mode to FORWARD LOOP</h4>
+      <span class="path">SRC page → PLAY = FORWARD LOOP</span>
+      <p>Only needed for a single cycle. It is what stretches one tiny cycle into a held
+      tone. On an ordinary sample, leave PLAY alone.</p>
+    </li>
+    <li>
+      <h4>Select a filter machine</h4>
+      <span class="path">Hold [SRC] → MACHINE → FLTR → LOWPASS 4</span>
+      <p>A 24 dB per octave lowpass. Each filter machine gives a very different
+      character, so try the others as well. COMB- adds an aggressive, metallic bite.</p>
+    </li>
+  </ol>
 
   <h2 id="support">Support</h2>
 
@@ -107,18 +207,13 @@
   <h3>Nothing responds when I play</h3>
   <div class="warn">
     <p style="margin-bottom:0">
-      This is almost always the one-time Digitakt setup. Open the <strong>SETUP</strong>
-      tab inside the app and follow steps 1 to 5. Until the MIDI channels, the clock,
-      and the amp mode match, PLUR stays silent.
+      This is almost always the one-time Digitakt setup. Go through
+      <a href="#setup">steps 1 to 5</a> again. Until the MIDI channels, the clock and the
+      amp mode all match, PLUR stays silent. Step 2 is the one people miss most often:
+      the Digitakt ships with AUTO CHANNEL on 10, which collides with the app's second
+      track.
     </p>
   </div>
-  <p>The most common causes:</p>
-  <ul>
-    <li>The track MIDI channels on the Digitakt do not match the CH settings in the app header.</li>
-    <li><code>AUTO CHANNEL</code> is still on channel 10, which collides with the app's second track.</li>
-    <li><code>CLOCK SEND</code> and <code>TRANSPORT SEND</code> are off, so the app's sequencer never starts.</li>
-    <li><code>AMP MODE</code> is set to ADSR instead of AHD, so the AMP ENV encoder does nothing useful.</li>
-  </ul>
 
   <h3>The morph pad feels dead</h3>
   <p>
