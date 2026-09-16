@@ -20,6 +20,13 @@
   header{border-bottom:1px solid var(--line); padding-bottom:28px; margin-bottom:40px}
   .mark{display:block; width:210px; max-width:60%; height:auto; margin:0 0 14px}
   .tag{color:var(--dim); font-size:13px; letter-spacing:.18em; text-transform:uppercase; margin:0}
+  .cta{
+    display:inline-block; margin:22px 0 0; padding:12px 22px; border-radius:3px;
+    background:var(--sand); color:#131211; text-decoration:none;
+    font-size:14px; font-weight:700; letter-spacing:.06em;
+  }
+  .cta:hover{background:var(--cream)}
+  .cta small{font-weight:600; opacity:.7; margin-left:6px}
   nav{margin:26px 0 0; display:flex; gap:1px; flex-wrap:wrap}
   nav a{
     display:inline-block; padding:9px 18px; background:var(--strip); color:var(--text);
@@ -81,6 +88,7 @@
   <header>
     <img class="mark" src="plur_logo_white.png" alt="PLUR" width="1138" height="406">
     <p class="tag">Generative controller for the Elektron Digitakt II</p>
+    <a class="cta" href="https://apps.apple.com/app/plur-controller/id6783913252">Get PLUR on the App Store<small>free, iPad only</small></a>
     <nav>
       <a href="#demo">Demo</a>
       <a href="#setup">Setup</a>
